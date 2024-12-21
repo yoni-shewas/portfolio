@@ -6,7 +6,7 @@ This project is a dynamic portfolio website built using [PHP Framework]. It show
 ---
 
 ## Features
-- **Dynamic Content Management**: Easily add and update projects, blogs, and personal information.
+- **Dynamic Content Management**: Easily add and update projects, and personal information.
 - **Responsive Design**: Works seamlessly across desktops, tablets, and mobile devices.
 - **Contact Form**: Includes a secure and functional contact form.
 - **Customizable**: Modular structure allows for customization and scalability.
