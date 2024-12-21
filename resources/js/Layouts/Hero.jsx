@@ -6,7 +6,7 @@ export default function Hero() {
     return (
         <div
             id="home"
-            className="align-center gap-15 flex justify-center p-5 py-20"
+            className="align-center pb-15 flex justify-center gap-20 p-5 py-5 sm:flex-col-reverse md:flex-row"
         >
             <div className="items-left w-160 flex flex-col justify-center">
                 <p className="my-0 py-0 text-gray-400"> Hello I'm a </p>
