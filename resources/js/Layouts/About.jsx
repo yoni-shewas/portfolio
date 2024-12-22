@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FaEnvelope, FaPhone } from 'react-icons/fa';
 import animationData from '../src/programmer.json';
 
-export default function About() {
+export default function About({ PersonalInfo }) {
     const [notification, setNotification] = useState('');
 
     const handleCopy = (text, type) => {
@@ -35,14 +35,23 @@ export default function About() {
                     About Me
                 </h2>
                 <p className="mb-6 text-gray-300">
-                    Hello! I'm <span className="text-blue-400">Yonatan.</span>{' '}
-                    <br className="m-0 p-1" />
-                    I’m a web developer specializing in JavaScript, React,
-                    Django, and building user-centric applications. Passionate
-                    about solving complex problems and creating intuitive UIs.
-                    I’m always exploring new technologies and eager to
-                    collaborate on innovative web projects.
+                    {PersonalInfo && PersonalInfo.bio ? (
+                        <>{PersonalInfo.bio}</>
+                    ) : (
+                        <>
+                            Hello! I’m{' '}
+                            <span className="text-blue-400">Yonatan.</span>{' '}
+                            <br className="m-0 p-1" />
+                            I’m a web developer specializing in JavaScript,
+                            React, Django, and building user-centric
+                            applications. Passionate about solving complex
+                            problems and creating intuitive UIs. I’m always
+                            exploring new technologies and eager to collaborate
+                            on innovative web projects.
+                        </>
+                    )}
                 </p>
+
                 <h2 className="mb-6 text-4xl font-bold text-blue-400">
                     Contact
                 </h2>
@@ -50,12 +59,17 @@ export default function About() {
                     <div className="flex items-center gap-4 border-b border-gray-700 pb-4">
                         <div className="flex items-center">
                             <FaPhone className="mr-3 h-5 w-5 text-blue-400" />
-                            <p className="text-gray-300">+251 912 345 678</p>
+                            <p className="text-gray-300">
+                                {PersonalInfo?.phone || '+251 912 345 678'}
+                            </p>
                         </div>
                         <button
                             className="flex items-center text-sm text-blue-500 hover:text-blue-700"
                             onClick={() =>
-                                handleCopy('+251 912 345 678', 'Mobile number')
+                                handleCopy(
+                                    PersonalInfo?.phone || '+251 912 345 678',
+                                    'Mobile number',
+                                )
                             }
                             aria-label="Copy mobile number"
                         >
@@ -79,14 +93,16 @@ export default function About() {
                         <div className="flex items-center">
                             <FaEnvelope className="mr-3 h-5 w-5 text-blue-400" />
                             <p className="mr-0 pr-1 text-gray-300">
-                                yonatanmekuriya@gmail.com
+                                {PersonalInfo?.email ||
+                                    'yonatanmekuriya@gmail.com'}
                             </p>
                         </div>
                         <button
                             className="flex items-center text-sm text-blue-500 hover:text-blue-700"
                             onClick={() =>
                                 handleCopy(
-                                    'yonatanmekuriya@gmail.com',
+                                    PersonalInfo?.email ||
+                                        'yonatanmekuriya@gmail.com',
                                     'Email address',
                                 )
                             }

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('languages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('level');
-            $table->string('icon_url');
+            $table->string('level')->nullable();
+            $table->string('icon_url')->nullable();
             $table->timestamps();
         });
     }

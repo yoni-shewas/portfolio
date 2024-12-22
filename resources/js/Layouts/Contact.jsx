@@ -1,20 +1,22 @@
 import { useState } from 'react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-
-export default function Contact() {
+import { SocialIcon } from 'react-social-icons';
+export default function Contact({ PersonalInfo }) {
     const [notification, setNotification] = useState('');
 
     const handleCopy = (text, type) => {
         navigator.clipboard.writeText(text).then(
             () => {
                 setNotification(`${type} copied to clipboard!`);
-                setTimeout(() => setNotification(''), 3000); // Clear after 3 seconds
+                setTimeout(() => setNotification(''), 3000);
             },
             (err) => {
                 console.error('Failed to copy: ', err);
             },
         );
     };
+    const socialLinks = PersonalInfo?.social_links
+        ? [...new Set(Object.values(JSON.parse(PersonalInfo.social_links)))]
+        : [];
     return (
         <section id="contact">
             <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
@@ -61,7 +63,8 @@ export default function Contact() {
                                             My Address
                                         </h3>
                                         <p className="text-gray-600 dark:text-slate-400">
-                                            Addis Ababa, Ethiopia
+                                            {PersonalInfo?.address ||
+                                                'Addis Ababa, Ethiopia'}
                                         </p>
                                     </div>
                                 </li>
@@ -72,13 +75,16 @@ export default function Contact() {
                                         </h3>
                                         <div className="flex items-center justify-between">
                                             <p className="text-gray-600 dark:text-slate-400">
-                                                Mobile: +251 911 111 111
+                                                Mobile:{' '}
+                                                {PersonalInfo?.phone ||
+                                                    '+251 911 111 111'}
                                             </p>
                                             <button
                                                 className="ml-2 flex items-center text-sm text-blue-500 hover:text-blue-700"
                                                 onClick={() =>
                                                     handleCopy(
-                                                        '+251 911 111 111',
+                                                        PersonalInfo?.phone ||
+                                                            '+251 911 111 111',
                                                         'Mobile number',
                                                     )
                                                 }
@@ -102,13 +108,16 @@ export default function Contact() {
                                         </div>
                                         <div className="mt-2 flex items-center justify-between">
                                             <p className="text-gray-600 dark:text-slate-400">
-                                                Email: yonatanmekuriya@gmail.com
+                                                Email:{' '}
+                                                {PersonalInfo?.email ||
+                                                    'yonatanmekuriya@gmail.com'}
                                             </p>
                                             <button
                                                 className="ml-2 flex items-center text-sm text-blue-500 hover:text-blue-700"
                                                 onClick={() =>
                                                     handleCopy(
-                                                        'yonatanmekuriya@gmail.com',
+                                                        PersonalInfo?.email ||
+                                                            'yonatanmekuriya@gmail.com',
                                                         'Email address',
                                                     )
                                                 }
@@ -223,28 +232,18 @@ export default function Contact() {
                     </div>
                 </div>
                 <div className="mt-8 flex justify-center">
-                    <a
-                        href="https://github.com/Yonatan"
-                        className="mx-3 text-2xl text-blue-600 dark:text-blue-400"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <FaGithub />
-                    </a>
-                    <a
-                        href="https://linkedin.com/in/Yonatan"
-                        className="mx-3 text-2xl text-blue-600 dark:text-blue-400"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <FaLinkedin />
-                    </a>
-                    <a
-                        href="https://x.com/Yonatan"
-                        className="mx-3 text-2xl text-blue-600 dark:text-blue-400"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    ></a>
+                    <div className="flex justify-center gap-4">
+                        {socialLinks.map((link, index) => (
+                            <SocialIcon
+                                key={index}
+                                url={link}
+                                className="transition-transform hover:scale-110"
+                                style={{ height: 40, width: 40 }}
+                                bgColor="#1da1f2"
+                                fgColor="#fff"
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

@@ -1,73 +1,59 @@
-import djangoIcon from '@iconify-icons/logos/django';
-import javaIcon from '@iconify-icons/logos/java';
-import laravelIcon from '@iconify-icons/logos/laravel';
-import mysqlIcon from '@iconify-icons/logos/mysql';
-import phpIcon from '@iconify-icons/logos/php';
-import pythonIcon from '@iconify-icons/logos/python';
-import reactIcon from '@iconify-icons/logos/react';
-import sqliteIcon from '@iconify-icons/logos/sqlite';
-import { Icon } from '@iconify/react';
+import {
+    SiCplusplus,
+    SiCss3,
+    SiDotnet,
+    SiGo,
+    SiHtml5,
+    SiJavascript,
+    SiKotlin,
+    SiNodedotjs,
+    SiOracle,
+    SiPhp,
+    SiPython,
+    SiReact,
+    SiRuby,
+    SiSwift,
+} from 'react-icons/si';
 
-const languages = [
-    {
-        name: 'React',
-        icon: <Icon icon={reactIcon} width="30" />,
-        experience: 'Advanced',
-    },
-    {
-        name: 'MySQL',
-        icon: <Icon icon={mysqlIcon} width="30" />,
-        experience: 'Intermediate',
-    },
-    {
-        name: 'SQLite',
-        icon: <Icon icon={sqliteIcon} width="30" />,
-        experience: 'Intermediate',
-    },
-    {
-        name: 'Django',
-        icon: <Icon icon={djangoIcon} width="30" />,
-        experience: 'Advanced',
-    },
-    {
-        name: 'Laravel',
-        icon: <Icon icon={laravelIcon} width="30" />,
-        experience: 'Intermediate',
-    },
-    {
-        name: 'PHP',
-        icon: <Icon icon={phpIcon} width="30" />,
-        experience: 'Intermediate',
-    },
-    {
-        name: 'Python',
-        icon: <Icon icon={pythonIcon} width="30" />,
-        experience: 'Advanced',
-    },
-    {
-        name: 'Java',
-        icon: <Icon icon={javaIcon} width="30" />,
-        experience: 'Intermediate',
-    },
-];
+export default function Languages({ languages }) {
+    const iconMap = {
+        javascript: <SiJavascript className="text-blue-500" size={50} />,
+        python: <SiPython className="text-blue-500" size={50} />,
+        react: <SiReact className="text-blue-500" size={50} />,
+        nodejs: <SiNodedotjs className="text-blue-500" size={50} />,
+        php: <SiPhp className="text-blue-500" size={50} />,
+        html5: <SiHtml5 className="text-blue-500" size={50} />,
+        css3: <SiCss3 className="text-blue-500" size={50} />,
+        csharp: <SiDotnet className="text-blue-500" size={50} />,
+        go: <SiGo className="text-blue-500" size={50} />,
+        ruby: <SiRuby className="text-blue-500" size={50} />,
+        swift: <SiSwift className="text-blue-500" size={50} />,
+        kotlin: <SiKotlin className="text-blue-500" size={50} />,
+        java: <SiOracle className="text-blue-500" size={50} />,
+        cplusplus: <SiCplusplus className="text-blue-500" size={50} />,
+    };
 
-export default function Languages() {
     return (
         <div
             id="languages-container"
             className="mt-0 flex snap-x flex-col items-center justify-center overflow-x-auto pb-10 pt-0"
         >
-            <h2 className="mb-6 text-4xl font-bold text-blue-400">
+            <h2 className="mb-6 text-4xl font-bold text-gray-200">
                 Languages & Technologies
             </h2>
 
-            <div className="flex gap-1">
+            <div className="flex gap-4">
                 {languages.map((language, index) => (
                     <div
                         key={index}
-                        className="flex cursor-pointer flex-col flex-wrap items-center opacity-80 transition-all duration-300 ease-in-out hover:scale-110 hover:opacity-100"
+                        className="flex cursor-pointer flex-col items-center opacity-80 transition-all duration-300 ease-in-out hover:scale-110 hover:opacity-100"
                     >
-                        <div className="h-40 w-40">{language.icon}</div>
+                        {iconMap[language.name.toLowerCase()] || (
+                            <div className="text-gray-400">Icon Missing</div>
+                        )}
+                        <p className="mt-2 text-sm text-gray-700">
+                            {language.name}
+                        </p>
                     </div>
                 ))}
             </div>
