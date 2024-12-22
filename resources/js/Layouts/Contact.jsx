@@ -129,7 +129,7 @@ export default function Contact() {
                                             id="name"
                                             name="name"
                                             placeholder="Your name"
-                                            className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md sm:mb-0 dark:text-gray-300"
+                                            className="mb-2 w-full border border-gray-400 py-2 pl-2 pr-4 shadow-md sm:mb-0 dark:text-gray-300"
                                             required
                                         />
                                     </div>
@@ -139,7 +139,7 @@ export default function Contact() {
                                             id="email"
                                             name="email"
                                             placeholder="Your email address"
-                                            className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md sm:mb-0 dark:text-gray-300"
+                                            className="mb-2 w-full border border-gray-400 py-2 pl-2 pr-4 shadow-md sm:mb-0 dark:text-gray-300"
                                             required
                                         />
                                     </div>
@@ -151,14 +151,14 @@ export default function Contact() {
                                         cols="30"
                                         rows="5"
                                         placeholder="Write your message..."
-                                        className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md sm:mb-0 dark:text-gray-300"
+                                        className="mb-2 w-full border border-gray-400 py-2 pl-2 pr-4 shadow-md sm:mb-0 dark:text-gray-300"
                                         required
                                     ></textarea>
                                 </div>
                                 <div className="text-center">
                                     <button
                                         type="submit"
-                                        className="font-xl w-full rounded-md bg-blue-800 px-6 py-3 text-white sm:mb-0"
+                                        className="font-xl w-full bg-blue-800 px-6 py-3 text-white sm:mb-0"
                                     >
                                         Send Message
                                     </button>
