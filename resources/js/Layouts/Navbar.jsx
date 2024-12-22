@@ -11,7 +11,7 @@ export default function Navbar() {
                         to="home"
                         spy={true}
                         smooth={true}
-                        offset={-120}
+                        offset={-150}
                         duration={500}
                         className="relative"
                     >
@@ -25,7 +25,7 @@ export default function Navbar() {
                         to="about"
                         spy={true}
                         smooth={true}
-                        offset={-70}
+                        offset={-50}
                         duration={500}
                         className="relative"
                     >
@@ -39,7 +39,7 @@ export default function Navbar() {
                         to="projects"
                         spy={true}
                         smooth={true}
-                        offset={-90}
+                        offset={-70}
                         duration={500}
                         className="relative"
                     >
@@ -53,7 +53,7 @@ export default function Navbar() {
                         to="contact"
                         spy={true}
                         smooth={true}
-                        offset={-70}
+                        offset={-2}
                         duration={500}
                         className="relative"
                     >

@@ -1,6 +1,20 @@
+import { useState } from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Contact() {
+    const [notification, setNotification] = useState('');
+
+    const handleCopy = (text, type) => {
+        navigator.clipboard.writeText(text).then(
+            () => {
+                setNotification(`${type} copied to clipboard!`);
+                setTimeout(() => setNotification(''), 3000); // Clear after 3 seconds
+            },
+            (err) => {
+                console.error('Failed to copy: ', err);
+            },
+        );
+    };
     return (
         <section id="contact">
             <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
@@ -52,34 +66,75 @@ export default function Contact() {
                                     </div>
                                 </li>
                                 <li className="flex">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded bg-blue-900 text-gray-50">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            className="h-6 w-6"
-                                        >
-                                            <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
-                                            <path d="M15 7a2 2 0 0 1 2 2"></path>
-                                            <path d="M15 3a6 6 0 0 1 6 6"></path>
-                                        </svg>
-                                    </div>
                                     <div className="mb-4 ml-4">
                                         <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
                                             Contact
                                         </h3>
-                                        <p className="text-gray-600 dark:text-slate-400">
-                                            Mobile: +251 911 111 111
-                                        </p>
-                                        <p className="text-gray-600 dark:text-slate-400">
-                                            Email: yonatanmekuriya@gmail.com
-                                        </p>
+                                        <div className="flex items-center justify-between">
+                                            <p className="text-gray-600 dark:text-slate-400">
+                                                Mobile: +251 911 111 111
+                                            </p>
+                                            <button
+                                                className="ml-2 flex items-center text-sm text-blue-500 hover:text-blue-700"
+                                                onClick={() =>
+                                                    handleCopy(
+                                                        '+251 911 111 111',
+                                                        'Mobile number',
+                                                    )
+                                                }
+                                                aria-label="Copy mobile number"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={1.5}
+                                                    stroke="currentColor"
+                                                    className="mr-1 h-5 w-5"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M8.25 15.75v3a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0020.25 18v-7.5M15.75 3.75h-7.5A2.25 2.25 0 006 6v10.5a2.25 2.25 0 002.25 2.25h7.5M15 9.75h3.75M6.75 12h4.5"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div className="mt-2 flex items-center justify-between">
+                                            <p className="text-gray-600 dark:text-slate-400">
+                                                Email: yonatanmekuriya@gmail.com
+                                            </p>
+                                            <button
+                                                className="ml-2 flex items-center text-sm text-blue-500 hover:text-blue-700"
+                                                onClick={() =>
+                                                    handleCopy(
+                                                        'yonatanmekuriya@gmail.com',
+                                                        'Email address',
+                                                    )
+                                                }
+                                                aria-label="Copy email address"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={1.5}
+                                                    stroke="currentColor"
+                                                    className="mr-1 h-5 w-5"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M8.25 15.75v3a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0020.25 18v-7.5M15.75 3.75h-7.5A2.25 2.25 0 006 6v10.5a2.25 2.25 0 002.25 2.25h7.5M15 9.75h3.75M6.75 12h4.5"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        {notification && (
+                                            <div className="mt-4 rounded bg-green-100 p-2 text-center text-sm text-green-700">
+                                                {notification}
+                                            </div>
+                                        )}
                                     </div>
                                 </li>
                                 <li className="flex">

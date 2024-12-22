@@ -1,8 +1,23 @@
 import Lottie from 'lottie-react';
+import { useState } from 'react';
 import { FaEnvelope, FaPhone } from 'react-icons/fa';
 import animationData from '../src/programmer.json';
 
 export default function About() {
+    const [notification, setNotification] = useState('');
+
+    const handleCopy = (text, type) => {
+        navigator.clipboard.writeText(text).then(
+            () => {
+                setNotification(`${type} copied to clipboard!`);
+                setTimeout(() => setNotification(''), 3000);
+            },
+            (err) => {
+                console.error('Failed to copy: ', err);
+            },
+        );
+    };
+
     return (
         <div
             id="about"
@@ -31,15 +46,73 @@ export default function About() {
                 <h2 className="mb-6 text-4xl font-bold text-blue-400">
                     Contact
                 </h2>
-                <div className="flex flex-col items-center gap-4 md:items-start">
-                    <p className="flex items-center text-gray-300">
-                        <FaEnvelope className="mr-3 h-5 w-5" />
-                        yonatanmekuriya@gmail.com
-                    </p>
-                    <p className="flex items-center text-gray-300">
-                        <FaPhone className="mr-3 h-5 w-5" />
-                        +251 912 345 678
-                    </p>
+                <div className="mb-4">
+                    <div className="flex items-center gap-4 border-b border-gray-700 pb-4">
+                        <div className="flex items-center">
+                            <FaPhone className="mr-3 h-5 w-5 text-blue-400" />
+                            <p className="text-gray-300">+251 912 345 678</p>
+                        </div>
+                        <button
+                            className="flex items-center text-sm text-blue-500 hover:text-blue-700"
+                            onClick={() =>
+                                handleCopy('+251 912 345 678', 'Mobile number')
+                            }
+                            aria-label="Copy mobile number"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="h-5 w-5"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M8.25 15.75v3a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0020.25 18v-7.5M15.75 3.75h-7.5A2.25 2.25 0 006 6v10.5a2.25 2.25 0 002.25 2.25h7.5M15 9.75h3.75M6.75 12h4.5"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="mt-4 flex items-center gap-4">
+                        <div className="flex items-center">
+                            <FaEnvelope className="mr-3 h-5 w-5 text-blue-400" />
+                            <p className="mr-0 pr-1 text-gray-300">
+                                yonatanmekuriya@gmail.com
+                            </p>
+                        </div>
+                        <button
+                            className="flex items-center text-sm text-blue-500 hover:text-blue-700"
+                            onClick={() =>
+                                handleCopy(
+                                    'yonatanmekuriya@gmail.com',
+                                    'Email address',
+                                )
+                            }
+                            aria-label="Copy email address"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="h-5 w-5"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M8.25 15.75v3a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0020.25 18v-7.5M15.75 3.75h-7.5A2.25 2.25 0 006 6v10.5a2.25 2.25 0 002.25 2.25h7.5M15 9.75h3.75M6.75 12h4.5"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    {notification && (
+                        <div className="mt-4 rounded bg-blue-200 p-2 text-center text-sm text-green-700">
+                            {notification}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
