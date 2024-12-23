@@ -1,3 +1,4 @@
+import Link from '@/Components/Link';
 import { useForm } from '@inertiajs/react';
 import {
     SiCplusplus,
@@ -68,6 +69,12 @@ export default function Skills({ languages }) {
     return (
         <div>
             <div className="mt-5 flex snap-x flex-col items-center justify-center overflow-x-auto bg-gray-100 pb-12 pt-2">
+                <Link
+                    href="/dahsboard"
+                    className="text-blue-600 hover:underline"
+                >
+                    Go back to dashboard
+                </Link>
                 <h2 className="mb-6 text-4xl font-bold text-blue-600">
                     Languages & Technologies
                 </h2>

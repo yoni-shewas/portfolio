@@ -1,10 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import DashboardNav from '@/Layouts/DashboardNav';
 import { Link, usePage } from '@inertiajs/react';
 
 export default function Dashboard() {
     const { auth } = usePage().props;
     const user = auth.user;
-
     const navigationItems = [
         { name: 'Projects', href: '/projects' },
         { name: 'Skills', href: '/language' },
@@ -16,20 +16,7 @@ export default function Dashboard() {
         <AuthenticatedLayout header="Dashboard">
             <div className="min-h-screen bg-gray-100">
                 <div className="flex">
-                    <aside className="h-160 w-64 bg-gray-800 text-white">
-                        <nav className="space-y-2 py-4">
-                            {navigationItems.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className="block px-4 py-2 text-sm hover:bg-gray-700"
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
-                        </nav>
-                    </aside>
-
+                    <DashboardNav />
                     <main className="flex-1 flex-wrap p-6">
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                             {navigationItems.map((item) => (

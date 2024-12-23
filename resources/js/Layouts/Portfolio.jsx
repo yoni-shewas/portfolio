@@ -1,8 +1,6 @@
 import PortfolioCard from '../Components/PortfolioCard';
 
-export default function Portfolio() {
-    const portfolioCards = Array.from({ length: 10 });
-
+export default function Portfolio({ projects }) {
     return (
         <div
             id="projects"
@@ -10,14 +8,14 @@ export default function Portfolio() {
         >
             <h2 className="mb-6 text-4xl font-bold text-blue-400">Portfolio</h2>
 
-            <div className="relative w-full overflow-x-auto">
-                <div className="flex snap-x snap-mandatory gap-6 scroll-smooth pb-4 sm:snap-x md:pb-6">
-                    {portfolioCards.map((_, index) => (
+            <div className="relative w-full overflow-x-hidden">
+                <div className="flex snap-x snap-mandatory justify-center gap-6 scroll-smooth pb-4 sm:snap-x md:pb-6">
+                    {projects.map((project, index) => (
                         <div
                             key={index}
-                            className="flex-shrink-0 p-4 shadow-lg transition-all duration-300 ease-in-out hover:scale-105"
+                            className="flex-shrink-0 transform p-4 shadow-lg transition-transform duration-300 ease-in-out hover:scale-110"
                         >
-                            <PortfolioCard />
+                            <PortfolioCard project={project} />
                         </div>
                     ))}
                 </div>
