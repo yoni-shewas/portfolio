@@ -22,7 +22,7 @@ COPY . .
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install PHP dependencies using Composer
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader
 
 # Install Node.js dependencies (including dev dependencies)
 RUN npm install
@@ -31,12 +31,12 @@ RUN npm install
 RUN npm run build
 
 RUN chown -R www-data:www-data /var/www/database && \
-    chmod -R 775 /var/www/database
+    chmod -R 775 /var/www/database/database.sqlite
 
 
 # Set permissions for Laravel's storage, cache, and build directories
-RUN chown -R www-data:www-data /var/www && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database /var/www/public/build
+RUN chown -R www-data:www-data var/www && \
+    chmod -R 775 var/www var/www/storage var/www/bootstrap/cache var/www/database var/www/build var/www/public/build
 
 # Set the Laravel APP_ENV to production and cache the configuration
 RUN php artisan storage:link && \
@@ -48,4 +48,4 @@ RUN php artisan storage:link && \
 EXPOSE 8000
 
 # Start the Laravel application using the built-in PHP server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php", "artisan", "serve", "--host=127.0.0.1" , "--port=8000"]
