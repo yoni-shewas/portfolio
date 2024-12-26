@@ -23,18 +23,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --optimize-autoloader --no-dev
 
 # Set permissions for Laravel's storage and cache directories
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 775 storage bootstrap/cache \
-    && chmod -R 775 database
+RUN chown -R www-data:www-data /var/www && \
+    chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database
+
+# Set the Laravel APP_ENV to production and cache the configuration
+RUN php artisan storage:link && \
+    php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache
 
 # Expose port 8000 for Laravel's built-in server
 EXPOSE 8000
-
-# Set the Laravel APP_ENV to production and cache the configuration
-RUN php artisan storage:link \
-    php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
 
 # Start the Laravel application using the built-in PHP server
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
