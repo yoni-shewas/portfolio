@@ -31,7 +31,8 @@ RUN chown -R www-data:www-data /var/www \
 EXPOSE 8000
 
 # Set the Laravel APP_ENV to production and cache the configuration
-RUN php artisan config:cache \
+RUN php artisan storage:link \
+    php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache
 

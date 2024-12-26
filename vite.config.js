@@ -3,6 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+    base: '/build/',
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.jsx'],
@@ -12,8 +13,12 @@ export default defineConfig({
     ],
     server: {
         proxy: {
-            '/api': 'http://localhost:8000',
+            '/': 'https://portfolio-6q7j.onrender.com',
         },
         cors: true,
+        host: true,
+    },
+    build: {
+        outDir: 'public/build',
     },
 });
