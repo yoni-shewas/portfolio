@@ -8,13 +8,15 @@ import Portfolio from '@/Layouts/Portfolio';
 
 export default function Home({ PersonalInfo, languages, projects }) {
     return (
-        <div className="align-center mg-0 flex min-h-screen flex-col gap-20 bg-gradient-to-r from-gray-900 via-gray-800 to-blue-900">
+        <div className="flex min-h-screen flex-col scroll-smooth bg-gradient-to-r from-gray-900 via-gray-800 to-blue-900">
             <Navbar />
-            <Hero />
-            <About PersonalInfo={PersonalInfo} />
-            <Languages languages={languages} />
-            <Portfolio projects={projects} />
-            <Contact PersonalInfo={PersonalInfo} />
+            <main className="flex flex-grow flex-col gap-10 scroll-smooth px-4 md:px-10 lg:px-20">
+                <Hero PersonalInfo={PersonalInfo} />
+                <About PersonalInfo={PersonalInfo} />
+                <Languages languages={languages} />
+                <Portfolio projects={projects} />
+                <Contact PersonalInfo={PersonalInfo} />
+            </main>
             <Footer />
         </div>
     );

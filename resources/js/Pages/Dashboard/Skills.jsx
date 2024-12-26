@@ -1,5 +1,4 @@
-import Link from '@/Components/Link';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import {
     SiCplusplus,
     SiCss3,

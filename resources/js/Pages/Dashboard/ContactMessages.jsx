@@ -18,11 +18,12 @@ export default function ContactMessages({ messages }) {
             message: message.message,
         });
     };
-
     const handleDelete = (messageId) => {
         if (confirm('Are you sure you want to delete this message?')) {
             form.delete(route('ContactMessageController.destroy', messageId), {
-                onSuccess: () => {alert('Message deleted successfully!'),}
+                onSuccess: () => {
+                    alert('Message deleted successfully!');
+                },
             });
         }
     };

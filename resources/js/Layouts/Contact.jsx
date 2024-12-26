@@ -1,5 +1,6 @@
 import { useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { FaEnvelope, FaPhone } from 'react-icons/fa';
 import { SocialIcon } from 'react-social-icons';
 
 export default function Contact({ PersonalInfo }) {
@@ -109,45 +110,77 @@ export default function Contact({ PersonalInfo }) {
                                             <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
                                                 Contact
                                             </h3>
-                                            <div className="flex items-center justify-between">
-                                                <p className="text-gray-600 dark:text-slate-400">
-                                                    Mobile:{' '}
-                                                    {PersonalInfo?.phone ||
-                                                        '+251 911 111 111'}
-                                                </p>
-                                                <button
-                                                    className="ml-2 flex items-center text-sm text-blue-500 hover:text-blue-700"
-                                                    onClick={() =>
-                                                        handleCopy(
-                                                            PersonalInfo?.phone ||
-                                                                '+251 911 111 111',
-                                                            'Mobile number',
-                                                        )
-                                                    }
-                                                    aria-label="Copy mobile number"
-                                                >
-                                                    Copy
-                                                </button>
-                                            </div>
-                                            <div className="mt-2 flex items-center justify-between">
-                                                <p className="text-gray-600 dark:text-slate-400">
-                                                    Email:{' '}
-                                                    {PersonalInfo?.email ||
-                                                        'yonatanmekuriya@gmail.com'}
-                                                </p>
-                                                <button
-                                                    className="ml-2 flex items-center text-sm text-blue-500 hover:text-blue-700"
-                                                    onClick={() =>
-                                                        handleCopy(
-                                                            PersonalInfo?.email ||
-                                                                'yonatanmekuriya@gmail.com',
-                                                            'Email address',
-                                                        )
-                                                    }
-                                                    aria-label="Copy email address"
-                                                >
-                                                    Copy
-                                                </button>
+                                            <div className="mb-4">
+                                                <div className="flex items-center gap-4 border-b border-gray-700 pb-4">
+                                                    <div className="flex items-center">
+                                                        <FaPhone className="mr-3 h-5 w-5 text-blue-400" />
+                                                        <p className="text-gray-300">
+                                                            {PersonalInfo?.phone ||
+                                                                '+251 912 345 678'}
+                                                        </p>
+                                                    </div>
+                                                    <button
+                                                        className="flex items-center text-sm text-blue-500 hover:text-blue-700"
+                                                        onClick={() =>
+                                                            handleCopy(
+                                                                PersonalInfo?.phone ||
+                                                                    '+251 912 345 678',
+                                                                'Mobile number',
+                                                            )
+                                                        }
+                                                        aria-label="Copy mobile number"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            strokeWidth={1.5}
+                                                            stroke="currentColor"
+                                                            className="h-5 w-5"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                d="M8.25 15.75v3a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0020.25 18v-7.5M15.75 3.75h-7.5A2.25 2.25 0 006 6v10.5a2.25 2.25 0 002.25 2.25h7.5M15 9.75h3.75M6.75 12h4.5"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <div className="mt-4 flex items-center gap-4">
+                                                    <div className="flex items-center">
+                                                        <FaEnvelope className="mr-3 h-5 w-5 text-blue-400" />
+                                                        <p className="mr-0 pr-1 text-gray-300">
+                                                            {PersonalInfo?.email ||
+                                                                'yonatanmekuriya@gmail.com'}
+                                                        </p>
+                                                    </div>
+                                                    <button
+                                                        className="flex items-center text-sm text-blue-500 hover:text-blue-700"
+                                                        onClick={() =>
+                                                            handleCopy(
+                                                                PersonalInfo?.email ||
+                                                                    'yonatanmekuriya@gmail.com',
+                                                                'Email address',
+                                                            )
+                                                        }
+                                                        aria-label="Copy email address"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            strokeWidth={1.5}
+                                                            stroke="currentColor"
+                                                            className="h-5 w-5"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                d="M8.25 15.75v3a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0020.25 18v-7.5M15.75 3.75h-7.5A2.25 2.25 0 006 6v10.5a2.25 2.25 0 002.25 2.25h7.5M15 9.75h3.75M6.75 12h4.5"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </li>

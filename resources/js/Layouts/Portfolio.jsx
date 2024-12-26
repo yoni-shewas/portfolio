@@ -8,8 +8,9 @@ export default function Portfolio({ projects }) {
         >
             <h2 className="mb-6 text-4xl font-bold text-blue-400">Portfolio</h2>
 
-            <div className="relative w-full overflow-x-hidden">
-                <div className="flex snap-x snap-mandatory justify-center gap-6 scroll-smooth pb-4 sm:snap-x md:pb-6">
+            <div className="relative w-full overflow-x-auto">
+                {' '}
+                <div className="flex snap-x snap-mandatory justify-start gap-6 scroll-smooth pb-4 sm:snap-x md:pb-6">
                     {projects.map((project, index) => (
                         <div
                             key={index}

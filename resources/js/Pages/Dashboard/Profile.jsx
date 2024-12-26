@@ -1,5 +1,4 @@
-import { Link, route } from '@inertiajs/inertia-react';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 
 export default function ProfileEdit({ PersonalInfo }) {
     const form = useForm({
@@ -14,7 +13,8 @@ export default function ProfileEdit({ PersonalInfo }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        form.post(route('PersonalInfoController.updateOrCreate'), {
+        form.post('/personal-info/update-or-create', {
+            // Use the URL directly
             onSuccess: () => alert('Profile updated successfully!'),
         });
     };
@@ -23,7 +23,7 @@ export default function ProfileEdit({ PersonalInfo }) {
         <div className="min-h-screen bg-gray-100 py-8">
             <div className="flex">
                 <Link
-                    href="/dahsboard"
+                    href="/dashboard"
                     className="text-blue-600 hover:underline"
                 >
                     Go back to dashboard

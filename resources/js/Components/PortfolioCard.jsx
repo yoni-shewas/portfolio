@@ -1,20 +1,22 @@
 export default function PortfolioCard({ project }) {
     return (
-        <div className="flex h-[500px] max-w-sm flex-col border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+        <div className="flex h-auto max-w-sm flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
             <a href={project.project_url || '#'}>
-                <img
-                    className="h-56 w-full bg-gray-100 object-contain p-4"
-                    src={project.image_url || '/backup.jpg'}
-                    alt={project.title}
-                />
+                <div className="relative w-full bg-gray-100">
+                    <img
+                        className="h-auto w-full"
+                        src={project.image_url || '/backup.jpg'}
+                        alt={project.title}
+                    />
+                </div>
             </a>
             <div className="flex flex-1 flex-col p-5">
                 <a href={project.project_url || '#'}>
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl dark:text-white">
                         {project.title}
                     </h5>
                 </a>
-                <p className="mb-3 line-clamp-3 overflow-hidden text-ellipsis text-gray-700 dark:text-gray-400">
+                <p className="mb-3 line-clamp-3 text-ellipsis text-sm text-gray-700 sm:text-base dark:text-gray-400">
                     {project.description}
                 </p>
                 <div className="mb-4">
@@ -22,9 +24,20 @@ export default function PortfolioCard({ project }) {
                         JSON.parse(project.tags).map((tag, index) => (
                             <span
                                 key={index}
-                                className="mr-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-400"
+                                className="mr-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 sm:text-sm dark:bg-blue-900 dark:text-blue-400"
                             >
                                 {tag}
+                            </span>
+                        ))}
+                </div>
+                <div className="mb-4">
+                    {project.technologies &&
+                        JSON.parse(project.technologies).map((tech, index) => (
+                            <span
+                                key={index}
+                                className="mr-2 inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 sm:text-sm dark:bg-green-900 dark:text-green-400"
+                            >
+                                {tech}
                             </span>
                         ))}
                 </div>
