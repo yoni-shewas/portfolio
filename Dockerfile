@@ -28,7 +28,7 @@ RUN composer install
 RUN npm install
 
 # Compile assets (use npm run production for production-ready assets)
-RUN npm run production
+RUN npm run build
 
 # Set permissions for Laravel's storage, cache, and build directories
 RUN chown -R www-data:www-data /var/www && \
