@@ -31,7 +31,7 @@ RUN npm install
 RUN npm run build
 
 RUN chown -R www-data:www-data /var/www/database && \
-    chmod -R 775 /var/www/database/database.sqlite
+    chmod -R 775 /var/www/database
 
 
 # Set permissions for Laravel's storage, cache, and build directories
