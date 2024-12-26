@@ -1,48 +1,55 @@
-# Use the official PHP image with FPM (FastCGI Process Manager)
-FROM php:8.2-fpm
+# Stage 1: Build React Application
+FROM node:18 AS react-builder
 
-# Install system dependencies and PHP extensions
-RUN apt-get update && apt-get install -y \
-    libsqlite3-dev \
-    libzip-dev \
-    unzip \
-    git \
-    curl \
-    nodejs \
-    npm \
-    && docker-php-ext-install pdo pdo_sqlite zip
+WORKDIR /app
 
-# Set the working directory
-WORKDIR /var/www
+# Copy the React application code to the container
+COPY ./ ./
 
-# Copy project files to the container, including the build directories
-COPY . .
+# Install dependencies and build the React application
+RUN npm install && npm run build
 
-# Install Composer globally
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Stage 2: Set up Laravel Application
+FROM php:8.2-fpm AS laravel-backend
 
-# Install PHP dependencies using Composer (including dev dependencies)
-RUN composer install
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y \
+        zip \
+        unzip \
+        git \
+        curl \
+        libpng-dev \
+        libonig-dev \
+        libxml2-dev \
+        libzip-dev \
+        sqlite3 \
+        libsqlite3-dev \
+    && docker-php-ext-install pdo pdo_sqlite pdo_mysql mbstring zip exif pcntl tokenizer xml gd
 
-# Install Node.js dependencies (including dev dependencies)
-RUN npm install
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Compile assets (use npm run production for production-ready assets)
-RUN npm run build
+WORKDIR /var/www/html
 
-# Set permissions for Laravel's storage, cache, and build directories
-RUN chown -R www-data:www-data /var/www && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database && \
-    chmod -R 775 /var/www/public/build  # Now the build directory exists
+# Copy Laravel application code
+COPY ./ ./
 
-# Set the Laravel APP_ENV to production and cache the configuration
-RUN php artisan storage:link && \
-    php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache
+# Copy React build to Laravel's public directory
+COPY --from=react-builder /app/public/build ./public/build
 
-# Expose port 8000 for Laravel's built-in server
+# Install Laravel dependencies
+RUN composer install --optimize-autoloader --no-dev
+
+# Set permissions for Laravel storage and cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Set SQLite database directory and permissions
+RUN mkdir -p /var/www/html/database && touch /var/www/html/database/database.sqlite \
+    && chown -R www-data:www-data /var/www/html/database
+
+# Expose the default Laravel port
 EXPOSE 8000
 
-# Start the Laravel application using the built-in PHP server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Set the entrypoint for Laravel
+CMD ["php", "artisan", "serve", "--host", "0.0.0.0", "--port", "8000"]
