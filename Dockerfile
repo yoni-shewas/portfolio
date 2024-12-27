@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     nodejs \
     npm \
-    && docker-php-ext-install pdo pdo_sqlite zip
+    sqlite3 \
+    && docker-php-ext-install pdo pdo_sqlite zip bcmath ctype fileinfo mbstring
 
 # Set the working directory inside the container
 WORKDIR /var/www
@@ -22,9 +23,9 @@ COPY . .
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install PHP dependencies using Composer
-RUN composer install --optimize-autoloader
+RUN composer install --optimize-autoloader --no-scripts
 
-# Install Node.js dependencies (including dev dependencies)
+# Install Node.js dependencies
 RUN npm install
 
 # Compile assets (use npm run production for production-ready assets)
@@ -32,25 +33,23 @@ RUN npm run build
 
 # Set permissions for Laravel's storage, cache, and database directories
 RUN chown -R www-data:www-data /var/www && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database
-
-RUN chown -R www-data:www-data /var/www/build && \
-    chmod -R 775 /var/www/build
-    
-RUN chown -R www-data:www-data /var/www/storage/logs $$\
-    chmod -R 775 /var/www/storage/logs
-
+    chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database && \
+    chmod -R 775 /var/www/public/build
 
 # Create an SQLite database file
 RUN touch /var/www/database/database.sqlite && \
     chown www-data:www-data /var/www/database/database.sqlite && \
     chmod 775 /var/www/database/database.sqlite
 
-# Link Laravel storage and cache configuration
-RUN php artisan storage:link && \
+# Check if .env exists and run Laravel commands only when appropriate
+RUN if [ -f .env ]; then \
+    php artisan storage:link && \
     php artisan config:cache && \
     php artisan route:cache && \
-    php artisan view:cache
+    php artisan view:cache; \
+    else \
+    echo "Warning: .env file not found, skipping Laravel artisan commands."; \
+    fi
 
 # Expose port 8000 for Laravel's built-in server
 EXPOSE 8000
