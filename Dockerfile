@@ -11,9 +11,9 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     npm \
     sqlite3 \
-    libonig-dev \  # Add this line to install the missing oniguruma library
-    && docker-php-ext-install pdo pdo_sqlite zip bcmath ctype fileinfo mbstring \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    libonig-dev && \  # Correct syntax for && at the end of the line
+    docker-php-ext-install pdo pdo_sqlite zip bcmath ctype fileinfo mbstring && \  # Another &&
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory inside the container
 WORKDIR /var/www
