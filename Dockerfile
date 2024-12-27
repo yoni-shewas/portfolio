@@ -1,5 +1,5 @@
 # Use the official PHP image with FPM (FastCGI Process Manager)
-FROM php:8.2-fpm AS php-fpm
+FROM php:8.4-fpm AS php-fpm
 
 # Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
