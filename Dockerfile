@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     npm \
     sqlite3 \
-    && docker-php-ext-install pdo pdo_sqlite zip bcmath ctype fileinfo mbstring
+    && docker-php-ext-install pdo pdo_sqlite zip bcmath ctype fileinfo mbstring \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory inside the container
 WORKDIR /var/www
