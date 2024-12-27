@@ -30,15 +30,16 @@ RUN npm install
 # Compile assets (use npm run production for production-ready assets)
 RUN npm run build
 
-RUN chown -R www-data:www-data /var/www/database && \
-    chmod -R 775 /var/www/database
+# Set permissions for Laravel's storage, cache, and database directories
+RUN chown -R www-data:www-data /var/www && \
+    chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database
 
+# Create an SQLite database file
+RUN touch /var/www/database/database.sqlite && \
+    chown www-data:www-data /var/www/database/database.sqlite && \
+    chmod 775 /var/www/database/database.sqlite
 
-# Set permissions for Laravel's storage, cache, and build directories
-RUN chown -R www-data:www-data var/www && \
-    chmod -R 775 var/www var/www/storage var/www/bootstrap/cache var/www/database var/www/build var/www/public/build
-
-# Set the Laravel APP_ENV to production and cache the configuration
+# Link Laravel storage and cache configuration
 RUN php artisan storage:link && \
     php artisan config:cache && \
     php artisan route:cache && \
@@ -48,4 +49,4 @@ RUN php artisan storage:link && \
 EXPOSE 8000
 
 # Start the Laravel application using the built-in PHP server
-CMD ["php", "artisan", "serve", "--host=127.0.0.1" , "--port=8000"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
