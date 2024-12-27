@@ -34,8 +34,12 @@ RUN npm run build
 RUN chown -R www-data:www-data /var/www && \
     chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/database
 
-RUN chown -R www-data:www-data /var/www && \
+RUN chown -R www-data:www-data /var/www/build && \
     chmod -R 775 /var/www/build
+    
+RUN chown -R www-data:www-data /var/www/storage/logs $$\
+    chmod -R 775 /var/www/storage/logs
+
 
 # Create an SQLite database file
 RUN touch /var/www/database/database.sqlite && \
